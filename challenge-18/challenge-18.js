@@ -18,13 +18,15 @@
   - "101.123-131x32"
   */
   console.log( 'Limpando CPFs:' );
+  
   function cleanCPF(cpf) {
     return cpf.match(/\d/g).join('');
   }
-  console.log( cleanCPF('049-214 3421-1') );
-  console.log( cleanCPF('210.458.522-05') );
-  console.log( cleanCPF('735 500 794 - 22') );
-  console.log( cleanCPF('101.123-131x32') );
+
+  console.log( cleanCPF( '049-214 3421-1' ) );
+  console.log( cleanCPF( '210.458.522-05' ) );
+  console.log( cleanCPF( '735 500 794 - 22' ) );
+  console.log( cleanCPF( '101.123-131x32' ) );
 
   /*
   Usando os CPFs limpos acima, deixe-os com a formatação correta de CPF.
@@ -32,22 +34,17 @@
   Mostre o resultado no console.
   */
   console.log( '\nFormatando CPFs corretamente:' );
-  
-  console.log( cleanCPF('049-214 3421-1').replace(/(\d\d\d)(\d\d\d)(\d\d\d)(\d\d)/, function (captura, a, b, c, d) {
-    return a + '.' + b + '.' + c + '-' + d;
-  }) );  
 
-  console.log( cleanCPF('210.458.522-05').replace(/(\d\d\d)(\d\d\d)(\d\d\d)(\d\d)/, function (captura, a, b, c, d) {
-    return a + '.' + b + '.' + c + '-' + d;
-  }) );
+  var regex = /(\d\d\d)(\d\d\d)(\d\d\d)(\d\d)/;
 
-  console.log( cleanCPF('735 500 794 - 22').replace(/(\d\d\d)(\d\d\d)(\d\d\d)(\d\d)/, function (captura, a, b, c, d) {
+  function formatCPF (captura, a, b, c, d) {
     return a + '.' + b + '.' + c + '-' + d;
-  }) );
+  }
 
-  console.log( cleanCPF('101.123-131x32').replace(/(\d\d\d)(\d\d\d)(\d\d\d)(\d\d)/, function (captura, a, b, c, d) {
-    return a + '.' + b + '.' + c + '-' + d;
-  }) );
+  console.log( cleanCPF( '049-214 3421-1' ).replace( regex, formatCPF ) );  
+  console.log( cleanCPF( '210.458.522-05' ).replace( regex, formatCPF ) );
+  console.log( cleanCPF( '735 500 794 - 22 ').replace( regex, formatCPF ) );
+  console.log( cleanCPF( '101.123-131x32' ).replace( regex, formatCPF ) );
   
 
   /*
@@ -62,7 +59,8 @@
   ["junho", "julho"]
   */
   console.log( '\nMatch com as palavras "junho" ou "julho" para a frase "Os meses de janeiro, junho e julho começam com a letra j.":' );
-  // ?
+  var mensagem = 'Os meses de janeiro, junho e julho começam com a letra j.';
+  console.log(mensagem.match(/ju.../g));
 
   /*
   Crie uma expressão regular que faça o match com a abertura de uma tag

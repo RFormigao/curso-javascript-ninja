@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>challenge-23</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 2em;
+      text-transform: uppercase;
+      color: rgb(62, 94, 202);
+    }
+
+    div {
+      display: flex;
+      border: 1px solid rgb(62, 94, 202);;
+      padding: 10px;
+      flex-wrap: wrap;
+      width: 30%;
+    }
+
+    input {
+      width: 30%;
+      padding: 10px;
+      border: 1px solid rgb(62, 94, 202);;
+      border-bottom: none;
+      background: transparent;
+    }
+
+    button {
+      width: calc((100% - 6px) / 3);
+      padding: 5px;
+      margin: 5px 1px;
+      cursor: pointer;
+    }
+    button:last-child {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mini-calculdora - Challenge 23</h1>
+  <input type="text" name="display" id="display" data-js="display"  value="0">
+  <div>
+    <button data-js="numbers" value="0">0</button>
+    <button data-js="numbers" value="1">1</button>
+    <button data-js="numbers" value="2">2</button>
+    <button data-js="numbers" value="3">3</button>
+    <button data-js="numbers" value="4">4</button>
+    <button data-js="numbers" value="5">5</button>
+    <button data-js="numbers" value="6">6</button>
+    <button data-js="numbers" value="7">7</button>
+    <button data-js="numbers" value="8">8</button>
+    <button data-js="numbers" value="9">9</button>
+    <button data-js="operations" value="+">+</button>
+    <button data-js="operations" value="-">-</button>
+    <button data-js="operations" value="*">*</button>
+    <button data-js="operations" value="÷">÷</button>
+    <button data-js="result" >=</button>
+    <button data-js="clear" >CE</button>
+  </div>
+
+
+  <script src="challenge-23.js"></script>
+</body>
+</html>

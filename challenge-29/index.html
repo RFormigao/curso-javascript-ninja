@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>challenge 29</title>
+</head>
+<body>
+  <div class="header">
+    <h1 data-js="title" >Company name</h1>
+    <p data-js="number">Telefone number</p>
+  </div>
+
+  <form action="#" data-js="form-insert-vehicle" >
+    <p> <label> Imagem do veículo </label> <input data-js="input-field" type="text"> </p>
+    <p> <label> Marca / Modelo </label> <input data-js="input-field" type="text"> </p>
+    <p> <label> Ano </label> <input data-js="input-field" type="text"> </p>
+    <p> <label> Placa </label> <input data-js="input-field" type="text"> </p>
+    <p> <label> Cor </label> <input data-js="input-field" type="text"> </p>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <table border="1" data-js="table-vehicles">
+    <thead data-js="table-header" >
+      <tr>
+        <th colspan="5">Lista de veículos</th>
+      </tr>
+      <tr>
+        <th>Imagem</th>
+        <th>Marca / Modelo</th>
+        <th>Ano</th>
+        <th>Placa</th>
+        <th>Cor</th>
+      </tr>
+    </thead>
+    <tbody data-js="table-body">
+    </tbody>
+  </table>
+
+
+  <script src="dom.js"></script>
+  <script src="challenge-29.js"></script>
+</body>
+</html>

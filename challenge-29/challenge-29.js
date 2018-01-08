@@ -47,7 +47,7 @@
 
       initEvents: function initEvents() {
         var $formVehicle = new DOM('[data-js="form-insert-vehicle"]');
-        $formVehicle.on('submit', this.addVehicle);
+        $formVehicle.on('submit', this.handleFormVehicles);
       },
 
       companyInfo: function companyInfo() {
@@ -71,17 +71,17 @@
         return this.readyState === 4 && this.status === 200;
       },
 
-      addVehicle: function addVehicle(event) {
+      handleFormVehicles: function handleFormVehicles(event) {
         event.preventDefault();   
-        var $formFields  = new DOM('[data-js="input-field"]');        
-        app().handleFormVehicles.call($formFields);
+        var $formFields = new DOM('[data-js="input-field"]');        
+        app().addVehicle.call($formFields);
         $formFields.methodArray('forEach', app().clearFields);     
       },
 
-      handleFormVehicles: function handleFormVehicles() {
+      addVehicle: function addVehicle() {
         var $tableBody   = new DOM('[data-js="table-body"]');     
-        var lineTable = doc.createElement("tr");
-        var length = this.get().length;
+        var lineTable    = doc.createElement("tr");
+        var length       = this.get().length;
         
         for (let i = 0; i < length; i++) {
           var td = doc.createElement("td");
@@ -91,7 +91,7 @@
 
         $tableBody.get()[0].appendChild(lineTable);   
       },
-
+      
       clearFields: function clearFields(item) {
         item.value = '';
       }

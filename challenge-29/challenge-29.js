@@ -39,97 +39,65 @@
 
   function app() {
 
-    var $formVehicle = new DOM('[data-js="form-insert-vehicle"]');
-    var $formFields  = new DOM('[data-js="input-field"]');
-    var $tableBody   = new DOM('[data-js="table-body"]');
-    var $title       = new DOM('[data-js="title"]');
-    var $phone       = new DOM('[data-js="number"]');
-    var ajax         = new XMLHttpRequest();
-    var lineTable    = '';
-    var testUrl      = /(?:http(?:s):\/\/w{3}\.?\w+\.\w{2,3}(?:\.\w{2})?)\/.+/g;
+    return {
+      init: function init() {
+        this.companyInfo();
+        this.initEvents();
+      },
 
-    $formVehicle.on('submit', addVehicle);
+      initEvents: function initEvents() {
+        var $formVehicle = new DOM('[data-js="form-insert-vehicle"]');
+        $formVehicle.on('submit', this.addVehicle);
+      },
 
-    function addVehicle(event) {
-      event.preventDefault();
-      if ( verifyFields() ) {
-        handleFormVehicles();
-        $formFields.methodArray('forEach', clearFields);
+      companyInfo: function companyInfo() {
+        var ajax = new XMLHttpRequest();
+        ajax.open('GET', 'https://raw.githubusercontent.com/RFormigao/curso-javascript-ninja/master/challenge-29/company.json');
+        ajax.send();
+        ajax.addEventListener('readystatechange',this.getInfoCompany, false);
+      },
+
+      getInfoCompany: function getInfoCompany() {
+        if (app().isRequestOk.call(this)) {
+          var data   =  JSON.parse(this.responseText);
+          var $title = new DOM('[data-js="title"]');
+          var $phone = new DOM('[data-js="number"]');
+          $title.get()[0].textContent = data.name;
+          $phone.get()[0].textContent = data.phone;
+        }
+      },
+
+      isRequestOk: function isRequestOk() {
+        return this.readyState === 4 && this.status === 200;
+      },
+
+      addVehicle: function addVehicle(event) {
+        event.preventDefault();   
+        var $formFields  = new DOM('[data-js="input-field"]');        
+        app().handleFormVehicles.call($formFields);
+        $formFields.methodArray('forEach', app().clearFields);     
+      },
+
+      handleFormVehicles: function handleFormVehicles() {
+        var $tableBody   = new DOM('[data-js="table-body"]');     
+        var lineTable = doc.createElement("tr");
+        var length = this.get().length;
+        
+        for (let i = 0; i < length; i++) {
+          var td = doc.createElement("td");
+          td.appendChild( doc.createTextNode( this.get()[i].value ) );
+          lineTable.appendChild( td );            
+        }
+
+        $tableBody.get()[0].appendChild(lineTable);   
+      },
+
+      clearFields: function clearFields(item) {
+        item.value = '';
       }
     }
-
-    function verifyFields() {
-      if ( !$formFields.get()[0].value.match(testUrl) ) {
-        alert( 'Preencha com a URL de uma imagem' );
-        return false;
-      }
-
-      if ( $formFields.get()[1].value === '' ) {
-        alert( 'Preencha a marca / modelo do veiculo' );
-        return false;
-      }
-
-      if ( $formFields.get()[2].value === '' ) {
-        alert( 'Preencha o ano do veiculo ' );
-        return false;
-      }
-
-      if ( $formFields.get()[3].value === '' ) {
-        alert( 'Preencha a placa do veiculo' );
-        return false;
-      }
-
-      if ( $formFields.get()[4].value === '' ) {
-        alert( 'Preencha a cor do veiculo' );
-        return false;
-      }
-
-      alert ( 'Veiculo cadastrado com sucesso' );
-      return true;
-
-    }
-
-    function handleFormVehicles() {
-      lineTable = doc.createElement("tr");
-      $formFields.methodArray('forEach', handleFields);
-      $tableBody.get()[0].appendChild(lineTable);
-    }
-
-    function handleFields(item) {
-      var td = doc.createElement("td");
-      td.appendChild( doc.createTextNode( item.value ) );
-      lineTable.appendChild( td );
-    }
-
-    function clearFields(item) {
-      item.value = '';
-    }
-
-    function pullCompany() {
-      ajax.open('GET', 'https://raw.githubusercontent.com/RFormigao/curso-javascript-ninja/master/challenge-29/company.json');
-      ajax.send();
-      ajax.addEventListener('readystatechange',handleReadyStateChange, false);
-    }
-
-    function handleReadyStateChange() {
-      if (isRequestOk()) {
-        var data =  JSON.parse(ajax.responseText);
-        $title.get()[0].textContent = data.name;
-        $phone.get()[0].textContent = data.phone;
-      }
-    }
-
-    function isRequestOk() {
-      return ajax.readyState === 4 && ajax.status === 200;
-    }
-
-    function init() {
-      pullCompany();
-    }
-
-    return init();
   }
 
-  app();
+  app().init();
 
 })(window.DOM, document);
